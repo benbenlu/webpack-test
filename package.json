@@ -1,0 +1,26 @@
+{
+  "name": "webpack-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack-dev-server --config conf/webpack.conf.js",
+    "build": "webpack --config conf/webpack.conf.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "vue": "^2.6.8",
+    "webpack": "^4.29.5",
+    "webpack-dev-server": "^3.2.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.3.4",
+    "babel-loader": "^8.0.5",
+    "html-webpack-plugin": "^3.2.0",
+    "vue-loader": "^15.7.0",
+    "vue-template-compiler": "^2.6.8",
+    "webpack-cli": "^3.2.3"
+  }
+}
