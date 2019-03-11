@@ -1,7 +1,7 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const MiniCssExtractPlugin  = require('mini-css-extract-plugin')
 
 // webpack 导出一个函数时，规定的两个变量的书写方法
 module.exports = function (env, c) {
@@ -32,14 +32,19 @@ module.exports = function (env, c) {
                 },
                 {
                     test: /\.css$/,
-                    use: ExtractTextPlugin.extract({
-                        fallback: "style-loader",
-                        use: "css-loader"
-                    })  // use字段
+                    use: [
+                        process.env.NOED_ENV !== 'developemnt' ? MiniCssExtractPlugin.loader : 'vue-style-loader',
+                        'css-loader',
+                        'postcss-loader'  
+                ]
                 },
                 {
                     test: /\.(png|jpg|gif)$/,
-                    loader: 'file-loader' // use字段
+                    loader: 'url-loader',
+                    options: {
+                        limit: 1024,
+                        name: 'imgs/[name].[ext]'
+                    }
                 }
             ]
         },
@@ -49,7 +54,7 @@ module.exports = function (env, c) {
                 filename: 'index.html' // 输出文件的名称，相对于output的路径
             }),
             new VueLoaderPlugin(),
-            new ExtractTextPlugin({
+            new MiniCssExtractPlugin({
                 filename: 'style.css'
             })
         ]
