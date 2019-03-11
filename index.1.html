@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .tab-bar {
+            height:50px;line-height:50px;display:table;background:#e8e8e8;
+        }
+        .tab-item {
+            display:table-cell;width:1%;text-align:center;
+        }
+        .active {border-bottom: 2px solid #ff9800;}
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="tab-bar">
+            <div class="tab-item active" tab="0" onclick="toactive(this, 0)">tab1</div>
+            <div class="tab-item" tab="1" onclick="toactive(this, 1)">tab2</div>
+        </div>
+    </div>
+    <script type="">
+        var tabEls = document.getElementsByClassName('tab-item')
+        function toactive () {
+            var activeEl = document.getElementsByClassName('active')
+
+            if (tabEls[n].className.indexOf('active') == -1) {
+                // 方法一：清除所有元素上的active，再把当前的加上
+                // 方法二：获取当前active的元素，清除其active，给当前点击的元素添加active
+                for (var i = 0; i < tabEls.length; i++) {
+                    tabEls[i].classList.remove('active')
+                } 
+                // activeEl[0].classList.remove('active')
+                // tabEls[n].classList.add('active')
+            }
+        }
+
+    </script>
+</body>
+</html>
