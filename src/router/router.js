@@ -2,14 +2,14 @@
 
 const router = [
   {
-    path: '/b',
+    path: '/index',
     name: 'index',
-    component: () => import('../pages/a')
+    component: () => import('../pages/index')
   },
   {
     path: '/a',
     name: 'a',
-    component: () => import('../pages/index')
+    component: () => import('../pages/a')
   }
 ]
 

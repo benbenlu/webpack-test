@@ -2,6 +2,8 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const MiniCssExtractPlugin  = require('mini-css-extract-plugin')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
+const Webpack = require('webpack')
 
 // webpack 导出一个函数时，规定的两个变量的书写方法
 module.exports = function (env, c) {
@@ -16,7 +18,7 @@ module.exports = function (env, c) {
         // entry: ['./main.js', './main1.js'], // 入口为数组的话，会将两个文件合并为一个
         output: {
             path: path.resolve(__dirname, '../dist'), // 绝对路径
-            filename: '[name].[chunkhash].js'
+            chunkFilename: '[name].[chunkhash].js'
         },
         resolve: {
             extensions: ['.js', '.vue'], // 配置扩展名
@@ -26,6 +28,12 @@ module.exports = function (env, c) {
         },
         module: {
             rules: [
+                {
+                    enforce: 'pre',
+                    test: /\.(js|vue)$/,
+                    loader: 'eslint-loader',
+                    exclude: /node_modules/
+                },
                 {
                     test: /\.vue$/,
                     loader: 'vue-loader'
@@ -56,7 +64,27 @@ module.exports = function (env, c) {
             new VueLoaderPlugin(),
             new MiniCssExtractPlugin({
                 filename: 'style.css'
-            })
-        ]
+            }),
+            new CleanWebpackPlugin()
+        ],
+        optimization: {
+            splitChunks: {
+                chunks: 'async',
+                minSize: 1,
+                // minChunks: 1,
+                cacheGroups: {
+                    vendors: {
+                        test: /[\\/]node_modules[\\/]/,
+                        name: 'vendors',
+                        chunks: 'all'
+                    },
+                    common: {
+                        minChunks: 2,
+                        name: 'commons',
+                        chunks: 'initial'
+                    }
+                }
+            }
+        }
     }
 }
