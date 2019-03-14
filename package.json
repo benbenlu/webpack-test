@@ -5,12 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack-dev-server --config conf/webpack.conf.js",
-    "build": "webpack --config conf/webpack.conf.js --env.wll=wjz --cc.a"
+    "dev": "webpack-dev-server --config config/webpack.conf.js",
+    "build": "webpack --config config/webpack.conf.js --env.wll=wjz --cc.a",
+    "dll": "webpack --config config/webpack.dll.conf.js --env.wll=wjz --cc.a"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.18.0",
     "vue": "^2.6.8",
     "vue-router": "^3.0.2",
     "webpack": "^4.29.5",
@@ -37,6 +39,8 @@
     "postcss-loader": "^3.0.0",
     "postcss-preset-env": "^6.6.0",
     "style-loader": "^0.23.1",
+    "ts-loader": "^5.3.3",
+    "typescript": "^3.3.3333",
     "url-loader": "^1.1.2",
     "vue-loader": "^15.7.0",
     "vue-style-loader": "^4.1.2",

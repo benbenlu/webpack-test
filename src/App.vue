@@ -8,6 +8,9 @@
             <div>
                 <button style="background: green;" @click="rotate">顺时针90度</button>
             </div>
+            <div ref="div">
+                aa
+            </div>
         </div>
         <router-view></router-view>
     </div>
@@ -30,6 +33,9 @@ export default {
             console.log('style', this.$refs.img.style)
             console.log('transform', this.$refs.img.style.transform)
         }
+    },
+    mounted () {
+        
     }
 }
 </script>

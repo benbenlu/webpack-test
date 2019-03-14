@@ -20,6 +20,24 @@ module.exports = function (env, c) {
             path: path.resolve(__dirname, '../dist'), // 绝对路径
             chunkFilename: '[name].[chunkhash].js'
         },
+        devServer: {
+            proxy: {
+                proxyTable: {
+                    '/api': {
+                      // target: 'http://172.30.2.13:8080/mbp-gateway', // 开发接口
+                      // target: 'http://172.30.2.71:8880/',
+                      // target: 'http://172.30.2.165:8880/', // 开发环境
+                      target: 'http://mock.eolinker.com/vv6VtUW77cda0d478183d59656cd5777e9250f4c80b4a4c?uri=getresult', // 测试环境
+                      // target: 'http://172.30.50.127:8080', // 王子斌本地
+                      // target: 'http://172.30.50.107:8080', // 蔡鸿铭本地
+                      changeOrigin: true,
+                      pathRewrite: {
+                                  '^/api': ''
+                              }
+                    }
+                }
+            }
+        },
         resolve: {
             extensions: ['.js', '.vue'], // 配置扩展名
             alias: {
@@ -65,23 +83,29 @@ module.exports = function (env, c) {
             new MiniCssExtractPlugin({
                 filename: 'style.css'
             }),
-            new CleanWebpackPlugin()
+            new CleanWebpackPlugin(),
+            new Webpack.DllReferencePlugin({
+                manifest: require(path.join('../', 'static', 'manifest.json'))
+            })
         ],
         optimization: {
             splitChunks: {
                 chunks: 'async',
-                minSize: 1,
+                // minSize: 1,
                 // minChunks: 1,
                 cacheGroups: {
                     vendors: {
                         test: /[\\/]node_modules[\\/]/,
                         name: 'vendors',
-                        chunks: 'all'
+                        priority: -10,
+                        chunks: 'initial'
                     },
                     common: {
                         minChunks: 2,
                         name: 'commons',
-                        chunks: 'initial'
+                        priority: -20,
+                        chunks: 'initial',
+                        reuseExistingChunk: true
                     }
                 }
             }

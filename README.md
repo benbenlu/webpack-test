@@ -14,7 +14,8 @@ webpack与程序中的变量的使用
 进阶
 
 webpack的分包策略与缓存策略
-1.代码分离 webpack.optimize.CommonsChunkPlugin 将重复代码抽离到一个文件中
+1.代码分离 plugin的optimization 可将重复代码抽离到一个文件中 
+2.
 
 
 webpack结合npm相关脚本编写
